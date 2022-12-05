@@ -15,7 +15,7 @@ state_txt, instructions_txt = [x.split("\n") for x in input_raw.split("\n\n")]
 
 # Create current state
 def parse():
-    num_of_stacks = int(state_txt[-1][-1])
+    num_of_stacks = int(state_txt[-1].strip()[-1])
     stacks = [deque() for _ in range(num_of_stacks)]
 
     for line in state_txt[-2::-1]:
@@ -32,6 +32,8 @@ def parse():
 
     instructions = []
     for line in instructions_txt:
+        if len(line) == 0:
+            continue
         count, source, dest = re.findall(r"\d+", line)
         instructions.append(Instruction(int(count), int(source) - 1, int(dest) - 1))
 
